@@ -4,7 +4,7 @@
 # Challenge: create a class structure to represent stocks and bonds
 # Requirements:
 # -- Both stocks and bonds have a price
-# -- Stocks have a company name and ticker
+# -- Stocks have a company name and ticker O
 # -- Bonds have a description, duration, and yield
 # -- You should not be able to instantiate the base class
 # -- Subclasses are required to override get_description()
@@ -12,14 +12,35 @@
 # For stocks: "Ticker: Company -- $Price"
 # For bonds: "description: duration'yr' : $price : yieldamt%"
 
-class Asset():
-    pass
+from abc import ABC, abstractmethod
 
-class Stock():
-    pass
+class Asset(ABC):
+    def __init__(self, price):
+        self.price = price
 
-class Bond():
-    pass
+    @abstractmethod
+    def get_description(self):
+        pass
+
+class Stock(Asset):
+    def __init__(self, company, price, ticker):
+        super().__init__(price)
+        self.company = company
+        self.ticker = ticker
+
+    def get_description(self):
+        return f"{self.ticker}: {self.company} -- ${self.price}"
+
+class Bond(Asset):
+    def __init__(self, price, description, duration, yields):
+        super().__init__(price)
+        self.description = description
+        self.duration = duration
+        self.yields = yields
+
+    def get_description(self):
+        return f"{self.description}: {self.duration}yr : {self.yields}%"
+
 
 
 # ~~~~~~~~~ TEST CODE ~~~~~~~~~

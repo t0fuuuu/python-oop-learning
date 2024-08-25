@@ -10,7 +10,23 @@
 # of "Ticker: Company -- $Price"
 
 class Stock:
-    pass
+
+    __stocklist = None
+    def getbooklist():
+        if Stock.__stocklist == None:
+            Stock.__stocklist = []
+        else:
+            return Stock.__stocklist
+
+    def __init__(self, Ticker, Price, Company):
+        self.Ticker = Ticker
+        self.Price = Price
+        self.Company = Company
+
+    def get_description(self):
+        return f"{self.Ticker}: {self.Company} -- ${self.Price}"
+    
+    
 
 # ~~~~~~~~~ TEST CODE ~~~~~~~~~
 msft = Stock("MSFT", 342.0, "Microsoft Corp")
